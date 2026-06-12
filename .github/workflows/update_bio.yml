@@ -2,7 +2,7 @@ name: Update Bluesky bio
 
 on:
   schedule:
-    - cron: '*/5 0-3,12-23 * * *'
+    - cron: '2,7,12,17,22,27,32,37,42,47,52,57 0-3,12-23 * * *'
   workflow_dispatch:
 
 jobs:
