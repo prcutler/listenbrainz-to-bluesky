@@ -3,8 +3,12 @@
 
 import os
 import sys
+from datetime import datetime
 
 import requests
+from dotenv import load_dotenv
+
+load_dotenv()
 
 LISTENBRAINZ_USERNAME = os.environ["LISTENBRAINZ_USERNAME"]
 BLUESKY_HANDLE = os.environ["BLUESKY_HANDLE"]
@@ -79,10 +83,14 @@ def build_description(current: str, track_info: str) -> str:
     return base + suffix
 
 
+def log(msg: str) -> None:
+    print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] {msg}", flush=True)
+
+
 def main() -> None:
     track = get_latest_listen()
     if not track:
-        print("No recent listens found.")
+        log("No recent listens found.")
         sys.exit(0)
 
     access_jwt, did = create_session()
@@ -92,12 +100,12 @@ def main() -> None:
     new_description = build_description(current_description, track)
 
     if new_description == current_description:
-        print(f"No change: {track}")
+        log(f"No change: {track}")
         sys.exit(0)
 
     record["description"] = new_description
     put_profile_record(access_jwt, did, record)
-    print(f"Updated bio: {track}")
+    log(f"Updated bio: {track}")
 
 
 if __name__ == "__main__":
