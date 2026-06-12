@@ -55,7 +55,7 @@ The script (`update_bio.py`) runs every 5 minutes via a scheduled GitHub Actions
 
 ## Configuration
 
-The schedule can be changed by editing the `cron` expression in [`.github/workflows/update_bio.yml`](.github/workflows/update_bio.yml). The default is `*/5 * * * *` (every 5 minutes).
+The workflow runs every 5 minutes between 6am and 10pm CST (`*/5 0-3,12-23 * * *`). It does not run overnight. The schedule can be changed by editing the `cron` expression in [`.github/workflows/update_bio.yml`](.github/workflows/update_bio.yml).
 
 If you use a self-hosted Bluesky instance, set the `BLUESKY_HOST` environment variable to your PDS URL (defaults to `https://bsky.social`).
 
